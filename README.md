@@ -6,11 +6,13 @@ Esta é uma API simples para gerenciar informações sobre bruxos e varinhas do 
 
 1. Certifique-se de ter o Node.js e o PostgreSQL instalados em sua máquina.
 2. Clone este repositório.
-  ``  git clone  ``
+  ```
+    git clone https://github.com/Liviadbelao/atividade-harrypotter.git
+  ```
   
 4. No diretório raiz do projeto, execute o seguinte comando para instalar as dependências:
 
-
+``` npm install ```
 5. Configure o banco de dados PostgreSQL. Você pode usar o arquivo `database.sql` fornecido para criar o esquema do banco de dados e as tabelas necessárias.
 
 6. Renomeie o arquivo `.env.example` para `.env` e atualize as variáveis de ambiente com as configurações do seu banco de dados PostgreSQL.
@@ -39,8 +41,6 @@ A API oferece as seguintes rotas:
 - `DELETE /varinhas/:id`: Exclui uma varinha com base no ID fornecido.
 
 
-Você pode fazer requisições HTTP para estas rotas utilizando um cliente HTTP, como o Postman ou o cURL.
+Você pode fazer requisições HTTP para estas rotas utilizando um cliente HTTP, como o Postman ou insomnia.
 
-## Contribuição
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir problemas ou enviar solicitações pull.
+.
