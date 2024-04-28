@@ -19,7 +19,7 @@ Esta é uma API simples para gerenciar informações sobre bruxos e varinhas do 
 5. Certifique-se de ter o PostgreSQL instalado e em execução em sua máquina.
 6. Crie um banco de dados chamado `exercusuarios` (nome da database).
 7. Execute o script `scripts.sql` fornecido na pasta `sql` (no VScode) crie a tabela usuarios em seu banco.
-8. 1. Abra o arquivo `index.js`.
+8. Abra o arquivo `index.js`.
 9. Altere as configurações de conexão do banco de dados (`user`, `host`, `password`, `port`, etc.) conforme necessário para corresponder à sua configuração local.
 
 ## Iniciando servidor 
