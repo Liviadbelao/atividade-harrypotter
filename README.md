@@ -15,11 +15,19 @@ Esta é uma API simples para gerenciar informações sobre bruxos e varinhas do 
 ```
  npm install
 ```
-5. Configure o banco de dados PostgreSQL. Você pode usar o arquivo `database.sql` fornecido para criar o esquema do banco de dados e as tabelas necessárias.
+## Configurações banco de dados
+5. Certifique-se de ter o PostgreSQL instalado e em execução em sua máquina.
+6. Crie um banco de dados chamado `exercusuarios` (nome da database).
+7. Execute o script `scripts.sql` fornecido na pasta `sql` (no VScode) crie a tabela usuarios em seu banco.
+8. 1. Abra o arquivo `index.js`.
+9. Altere as configurações de conexão do banco de dados (`user`, `host`, `password`, `port`, etc.) conforme necessário para corresponder à sua configuração local.
 
-6. Renomeie o arquivo `.env.example` para `.env` e atualize as variáveis de ambiente com as configurações do seu banco de dados PostgreSQL.
-
-7. Inicie o servidor com o seguinte comando:
+## Iniciando servidor 
+1. Abrir o arquivo package.json e dentro de 'scripts:' adicionar a linha  "dev": "nodemon index.js".
+2. Insira o comando no terminal:
+```
+npm run dev
+```
 
 
 Agora você pode acessar a API em `http://localhost:3000`.
