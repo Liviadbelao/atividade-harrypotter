@@ -6,8 +6,8 @@ Esta é uma API simples para gerenciar informações sobre bruxos e varinhas do 
 
 1. Certifique-se de ter o Node.js e o PostgreSQL instalados em sua máquina.
 2. Clone este repositório.
-  `` bash``
-   git clone
+  ``  git clone  ``
+  
 4. No diretório raiz do projeto, execute o seguinte comando para instalar as dependências:
 
 
