@@ -1,4 +1,5 @@
 # API Harry Potter
+![Imagem principal](./images/hogwarts.jpg)
 
 Esta é uma API simples para gerenciar informações sobre bruxos e varinhas do mundo de Harry Potter.
 
@@ -35,6 +36,7 @@ Agora você pode acessar a API em `http://localhost:3000`.
 ## Uso
 
 A API oferece as seguintes rotas:
+![foto representativa de hogwarts](./images/fenixHarryPotter.jpg)
 
 - `GET /bruxos`: Retorna todos os bruxos cadastrados.
 - `GET /bruxos/:id`: Retorna um bruxo específico com base no ID fornecido.
