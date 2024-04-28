@@ -6,14 +6,16 @@ Esta é uma API simples para gerenciar informações sobre bruxos e varinhas do 
 
 1. Certifique-se de ter o Node.js e o PostgreSQL instalados em sua máquina.
 2. Clone este repositório.
-3. No diretório raiz do projeto, execute o seguinte comando para instalar as dependências:
+  `` bash``
+   git clone
+4. No diretório raiz do projeto, execute o seguinte comando para instalar as dependências:
 
 
-4. Configure o banco de dados PostgreSQL. Você pode usar o arquivo `database.sql` fornecido para criar o esquema do banco de dados e as tabelas necessárias.
+5. Configure o banco de dados PostgreSQL. Você pode usar o arquivo `database.sql` fornecido para criar o esquema do banco de dados e as tabelas necessárias.
 
-5. Renomeie o arquivo `.env.example` para `.env` e atualize as variáveis de ambiente com as configurações do seu banco de dados PostgreSQL.
+6. Renomeie o arquivo `.env.example` para `.env` e atualize as variáveis de ambiente com as configurações do seu banco de dados PostgreSQL.
 
-6. Inicie o servidor com o seguinte comando:
+7. Inicie o servidor com o seguinte comando:
 
 
 Agora você pode acessar a API em `http://localhost:3000`.
