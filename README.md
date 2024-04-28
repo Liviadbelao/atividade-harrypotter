@@ -36,6 +36,8 @@ Agora você pode acessar a API em `http://localhost:3000`.
 ## Uso
 
 A API oferece as seguintes rotas:
+
+
 ![foto representativa de hogwarts](./images/fenixHarryPotter.jpg)
 
 - `GET /bruxos`: Retorna todos os bruxos cadastrados.
