@@ -161,12 +161,10 @@ app.post('/bruxos', async (req, res) => {
         else if (nome.length < 3) {
             res.status(401).send({ mensagem: 'nome inválido' });
         }
-        else if (idade < 11) {
+        else if (idade <= 0) {
             res.status(401).send({ mensagem: 'esse bruxo não tem idade para estudar em hogwarts' });
         }
-        else if (idade > 18) {
-            res.status(401).send({ mensagem: 'esse bruxo tem idade superior aos alunos de hogwarts' });
-        }
+    
         else {
             await pool.query('INSERT INTO bruxos (nome, idade, casa_hogwarts, habilidade, status_sangue, patrono) VALUES ($1, $2, $3, $4, $5, $6)', [nome, idade, casa, habilidade, sangue, patrono]);
             res.status(201).send({ mensagem: 'bruxo criado com sucesso' });
@@ -245,12 +243,10 @@ app.put('/bruxos/:id', async (req, res) => {
         else if (nome.length < 3) {
             res.status(401).send({ mensagem: 'nome inválido' });
         }
-        else if (idade < 11) {
+        else if (idade <= 0) {
             res.status(401).send({ mensagem: 'esse bruxo não tem idade para estudar em hogwarts' });
         }
-        else if (idade > 18) {
-            res.status(401).send({ mensagem: 'esse bruxo tem idade superior aos alunos de hogwarts' });
-        }
+       
         else {
             await pool.query('UPDATE bruxos SET nome = $1, idade = $2, casa_hogwarts = $3, habilidade = $4, status_sangue = $5, patrono = $6 WHERE id = $7', [nome, idade, casa, habilidade, sangue, patrono, id]);
             res.status(200).send({ mensagem: 'bruxo atualizado' });
