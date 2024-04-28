@@ -11,8 +11,10 @@ Esta é uma API simples para gerenciar informações sobre bruxos e varinhas do 
   ```
   
 4. No diretório raiz do projeto, execute o seguinte comando para instalar as dependências:
-
-``` npm install ```
+## Instalações de dependências
+```
+ npm install
+```
 5. Configure o banco de dados PostgreSQL. Você pode usar o arquivo `database.sql` fornecido para criar o esquema do banco de dados e as tabelas necessárias.
 
 6. Renomeie o arquivo `.env.example` para `.env` e atualize as variáveis de ambiente com as configurações do seu banco de dados PostgreSQL.
