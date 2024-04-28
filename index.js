@@ -26,7 +26,7 @@ app.get('/bruxos', async (req, res) => {
         const resultado = await pool.query('SELECT * FROM bruxos');
         res.json({
             total: resultado.rowCount,
-            varinhas: resultado.rows,
+            bruxos: resultado.rows,
         });
     } catch (error) {
         console.error('erro a obter todos os bruxos', error);
@@ -56,7 +56,7 @@ app.get('/bruxos/:id', async (req, res) => {
             res.status(404).send('id não encontrado');
         } else {
             res.json({
-                usuario: resultado.rows[0],
+                bruxo: resultado.rows[0],
             });
         }
     } catch (error) {
@@ -73,12 +73,72 @@ app.get('/varinhas/:id', async (req, res) => {
             res.status(404).send('id não encontrado');
         } else {
             res.json({
-                usuario: resultado.rows[0],
+                varinha: resultado.rows[0],
             });
         }
     } catch (error) {
         console.error('erro ao obter varinha pelo id', error);
         res.status(500).send('erro ao obter varinha pelo id');
+    }
+});
+//pegar bruxo por nome 
+app.get('/bruxos/nomes/:nome', async (req, res) => {
+    try {
+        const { nome } = req.params;
+
+        const nomePesquisa = `%${nome}%`;
+        const resultado = await pool.query('SELECT * FROM bruxos WHERE LOWER(nome) LIKE LOWER($1)', [nomePesquisa]);
+        if (resultado.rowCount == 0) {
+            res.status(404).send('nome não encontrado');
+        } else {
+            res.json({
+                total: resultado.rowCount,
+                bruxo: resultado.rows
+            });
+        }
+    } catch (error) {
+        console.error('Erro ao pesquisar bruxos pelo nome', error);
+        res.status(500).send('Erro ao pesquisar bruxos pelo nome');
+    }
+});
+//pegar bruxo por status de sangue 
+app.get('/bruxos/sangue/:status_sangue', async (req, res) => {
+    try {
+        const { status_sangue } = req.params;
+
+        const sangue = `%${status_sangue}%`;
+        const resultado = await pool.query('SELECT * FROM bruxos WHERE LOWER(status_sangue) LIKE LOWER($1)', [sangue]);
+        if (resultado.rowCount == 0) {
+            res.status(404).send('tipo de sangue não encontrado');
+        } else {
+            res.json({
+                total: resultado.rowCount,
+                bruxo: resultado.rows
+            });
+        }
+    } catch (error) {
+        console.error('Erro ao pesquisar bruxos pelo tipo de sangue', error);
+        res.status(500).send('Erro ao pesquisar bruxos pelo tipo de sangue');
+    }
+});
+//pegar varinha por nucleo 
+app.get('/varinhas/nucleo/:nucleo', async (req, res) => {
+    try {
+        const { nucleo } = req.params;
+
+        const nucleoPesquisa = `%${nucleo}%`;
+        const resultado = await pool.query('SELECT * FROM varinhas WHERE LOWER(nucleo) LIKE LOWER($1)', [nucleoPesquisa]);
+        if (resultado.rowCount == 0) {
+            res.status(404).send('tipo de nucleo não encontrado');
+        } else {
+            res.json({
+                total: resultado.rowCount,
+                varinha: resultado.rows
+            });
+        }
+    } catch (error) {
+        console.error('Erro ao pesquisar varinha pelo nucleo', error);
+        res.status(500).send('Erro ao pesquisar varinha pelo nucleo');
     }
 });
 //criar bruxos
@@ -97,10 +157,10 @@ app.post('/bruxos', async (req, res) => {
         }
         else if (!tipo_sangue.includes(sangue)) {
             res.status(401).send({ mensagem: 'status de sangue definido incorretamente' });
-        } 
+        }
         else if (nome.length < 3) {
             res.status(401).send({ mensagem: 'nome inválido' });
-        } 
+        }
         else if (idade < 11) {
             res.status(401).send({ mensagem: 'esse bruxo não tem idade para estudar em hogwarts' });
         }
@@ -129,7 +189,7 @@ app.post('/varinhas', async (req, res) => {
         }
         else if (comprimento > 50.0) {
             res.status(401).send({ mensagem: 'varinha muito grande' });
-        } 
+        }
         else if (data > new Date()) {
             res.status(401).send({ mensagem: 'impossivel inserir uma varinha com a data de fabricação maior que o dia de hoje' });
         }
@@ -182,9 +242,9 @@ app.put('/bruxos/:id', async (req, res) => {
         else if (!tipo_sangue.includes(sangue)) {
             res.status(401).send({ mensagem: 'status de sangue definido incorretamente' });
         }
-         else if (nome.length < 3) {
+        else if (nome.length < 3) {
             res.status(401).send({ mensagem: 'nome inválido' });
-        } 
+        }
         else if (idade < 11) {
             res.status(401).send({ mensagem: 'esse bruxo não tem idade para estudar em hogwarts' });
         }
@@ -213,7 +273,7 @@ app.put('/varinhas/:id', async (req, res) => {
         }
         else if (comprimento > 50.0) {
             res.status(401).send({ mensagem: 'varinha muito grande' });
-        } 
+        }
         else if (data > new Date()) {
             res.status(401).send({ mensagem: 'impossivel inserir uma varinha com a data de fabricação maior que o dia de hoje' });
         }
