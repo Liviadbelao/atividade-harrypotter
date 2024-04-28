@@ -47,7 +47,40 @@ app.get('/varinhas', async (req, res) => {
         res.status(500).send('erro ao obter as varinhas');
     }
 });
-
+// pegar bruxo por id 
+app.get('/bruxos/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const resultado = await pool.query('SELECT * FROM bruxos WHERE id = $1', [id]);
+        if (resultado.rowCount == 0) {
+            res.status(404).send('id não encontrado');
+        } else {
+            res.json({
+                usuario: resultado.rows[0],
+            });
+        }
+    } catch (error) {
+        console.error('erro ao obter bruxo pelo id', error);
+        res.status(500).send('erro ao obter bruxo pelo id');
+    }
+});
+// pegar varinha por id
+app.get('/varinhas/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const resultado = await pool.query('SELECT * FROM varinhas WHERE id = $1', [id]);
+        if (resultado.rowCount == 0) {
+            res.status(404).send('id não encontrado');
+        } else {
+            res.json({
+                usuario: resultado.rows[0],
+            });
+        }
+    } catch (error) {
+        console.error('erro ao obter varinha pelo id', error);
+        res.status(500).send('erro ao obter varinha pelo id');
+    }
+});
 //criar bruxos
 
 app.post('/bruxos', async (req, res) => {
