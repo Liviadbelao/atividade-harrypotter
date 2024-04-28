@@ -10,8 +10,8 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'harrypotter',
-    password: 'ds564',
-    port: 7007,
+    password: 'liv121006',
+    port: 5432,
 });
 app.use(express.json());
 
@@ -53,9 +53,24 @@ app.get('/varinhas', async (req, res)=>{
 app.post('/bruxos', async (req, res) => {
     try {
         const { nome, idade, casa_hogwarts, habilidade, status_sangue, patrono } = req.body;
-        
-        await pool.query('INSERT INTO bruxos (nome, idade, casa_hogwarts, habilidade, status_sangue, patrono) VALUES ($1, $2, $3, $4, $5, $6)', [nome, idade, casa_hogwarts, habilidade, status_sangue, patrono]);
-        res.status(201).send({ mensagem: 'bruxo criado com sucesso' });
+        const sangue = status_sangue.toLowerCase()
+        const casa = casa_hogwarts.toLowerCase()
+
+        let casa_bruxo = ['lufa-lufa', 'corvinal', 'sonserina', 'grifinória']
+        let tipo_sangue = ['puro', 'mestiço', 'trouxa'];
+        if(!casa_bruxo.includes(casa)){
+            res.status(401).send({ mensagem: 'casa não existente no mundo de hogwarts' });
+        }
+        else if(!tipo_sangue.includes(sangue)){
+            res.status(401).send({ mensagem: 'status de sangue definido incorretamente' });
+        } else if(nome.length < 3){
+            res.status(401).send({ mensagem: 'nome inválido' });
+        }else if(idade < 11){
+            res.status(401).send({ mensagem: 'esse bruxo não tem idade para estudar em hogwarts' });
+        }
+        else{
+            await pool.query('INSERT INTO bruxos (nome, idade, casa_hogwarts, habilidade, status_sangue, patrono) VALUES ($1, $2, $3, $4, $5, $6)', [nome, idade, casa, habilidade, sangue, patrono]);
+        res.status(201).send({ mensagem: 'bruxo criado com sucesso' });}
     } catch (error) {
         console.error('erro ao inserir bruxo', error);
         res.status(500).send('erro ao inserir bruxo');
@@ -72,6 +87,55 @@ app.post('/varinhas', async (req, res) => {
     } catch (error) {
         console.error('Erro ao inserir varinha', error); // Corrigido para "varinha"
         res.status(500).send('Erro ao inserir varinha'); // Corrigido para "varinha"
+    }
+});
+
+//deletar bruxos 
+app.delete('/bruxos/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await pool.query('DELETE FROM bruxos WHERE id = $1', [id]);
+        res.status(200).send({ mensagem: 'bruxo deletado' });
+    } catch (error) {
+        console.error('erro ao excluir bruxo', error);
+        res.status(500).send('erro ao excluir bruxo');
+    }
+});
+//deletar varinhas 
+app.delete('/varinhas/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await pool.query('DELETE FROM varinhas WHERE id = $1', [id]);
+        res.status(200).send({ mensagem: 'varinha deletado' });
+    } catch (error) {
+        console.error('erro ao excluir varinha', error);
+        res.status(500).send('erro ao excluir varinha');
+    }
+});
+//editar bruxo
+app.put('/bruxos/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { nome, idade, casa_hogwarts, habilidade, status_sangue, patrono } = req.body;
+        
+        await pool.query('UPDATE bruxos SET nome = $1, idade = $2, casa_hogwarts = $3, habilidade = $4, status_sangue = $5, patrono = $6 WHERE id = $7', [nome, idade, casa_hogwarts, habilidade, status_sangue, patrono, id]);
+        res.status(200).send({ mensagem: 'usuário atualizado' });
+    } catch (error) {
+        console.error('erro ao atualizar usuário', error);
+        res.status(500).send('erro ao atualizar usuário');
+    }
+});
+//editar varinha
+app.put('/varinhas/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { material, comprimento, nucleo, data_fabricacao } = req.body;
+        
+        await pool.query('UPDATE varinhas SET material = $1, comprimento = $2, nucleo = $3, data_fabricacao = $4 WHERE id = $5', [material, comprimento, nucleo, data_fabricacao, id]);
+        res.status(200).send({ mensagem: 'varinha atualizado' });
+    } catch (error) {
+        console.error('erro ao atualizar varinha', error);
+        res.status(500).send('erro ao atualizar varinha');
     }
 });
 app.listen(PORT, () => {

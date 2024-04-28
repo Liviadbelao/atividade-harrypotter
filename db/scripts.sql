@@ -14,7 +14,7 @@ CREATE TABLE bruxos (
 CREATE TABLE varinhas (
     id SERIAL PRIMARY KEY,
     material VARCHAR(100) NOT NULL,
-    comprimento DECIMAL(10,2) NOT NULL,
+    comprimento DECIMAL NOT NULL,
     nucleo VARCHAR(100) NOT NULL,
     data_fabricacao DATE NOT NULL
 );
